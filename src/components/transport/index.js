@@ -5,7 +5,7 @@ class Transport extends React.Component {
 
   handleClick = event => {
     console.log("Transport changed to: " + event.target.value)
-    this.props.sendToAppTransport(event.target.value)
+    this.props.sendToHomeTransport(event.target.value)
   }
 
   render() {

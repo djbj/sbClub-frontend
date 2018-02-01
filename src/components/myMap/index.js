@@ -1,8 +1,9 @@
 import React from "react"
-import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsRenderer } from "react-google-maps"
 import sbBottle1 from "./sbBottle1.png"
-
 import "./index.css"
+
+const google = window.google;
 
 const MapWithAMarker = withGoogleMap(props =>
   <GoogleMap
@@ -12,7 +13,7 @@ const MapWithAMarker = withGoogleMap(props =>
     <Marker
       position={{ lat: props.myLat, lng: props.myLng }}
     />
-    {props.allStores.map(store => (
+    {props.storeList.map(store => (
       // console.log(store),
       // console.log(store.Lat, store.Lng)
       <Marker
@@ -33,10 +34,12 @@ const MapWithAMarker = withGoogleMap(props =>
           TextHere </InfoWindow>} */}
       </Marker>
     ))}
+
     </GoogleMap>
 )
 
 class MyMap extends React.Component {
+  
 
   render() {
     return (
@@ -47,7 +50,7 @@ class MyMap extends React.Component {
           zoomTala={13}
           myLat={parseFloat(this.props.myLat)}
           myLng={parseFloat(this.props.myLng)}
-          allStores={this.props.allStores}
+          storeList={this.props.storeList}
         />
       </div>
     )

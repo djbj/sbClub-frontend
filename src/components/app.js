@@ -15,26 +15,6 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    fetch("http://localhost:8080/stores").then(response => {
-
-      console.log("promise1")
-      return response.json()
-    }).then(json => {
-      json = json.map(store => {
-        let openingHours = store.Oppettider
-        openingHours = openingHours.split(",")
-        openingHours = openingHours.map(item =>
-          item.split(";"))
-        store.Oppettider = openingHours
-        return store
-      })
-      this.setState({ storeList: json })
-      console.log("promise2")
-      return json
-    })
-  }
-
   getLocationSuccess = pos => {
     const crd = pos.coords
     console.log("Your current position is:")
@@ -47,6 +27,40 @@ class App extends React.Component {
       myLng: crd.longitude,
       isLocationMarkerShown: true
     })
+    fetch("http://localhost:8080/stores").then(response => {
+      return response.json()
+    }).then(json => {
+      json = json.map(store => {
+        let openingHours = store.Oppettider
+        openingHours = openingHours.split(",")
+        openingHours = openingHours.map(item =>
+          item.split(";"))
+        store.Oppettider = openingHours
+        return store
+      })
+      this.setState({ storeList: json })
+      return json
+    })
+      .then(json => {
+        let destinationsCoords = ""
+        let urlStoresCoords = json.map(store => {
+          destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
+          return destinationsCoords
+        })
+        urlStoresCoords = urlStoresCoords.join("")
+        console.log(urlStoresCoords)
+        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.state.myLat + "%2C" + this.state.myLng + "&destinations="+ urlStoresCoords + "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
+        // url = url + urlStoresCoords + "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
+        console.log(url)
+        return url
+      })
+      // .then(url => {
+      //   Here I fetch distances using google matrix api
+      //   fetch(url, { mode: "no-cors" }).then(response => {
+      //     console.log("REsponse is: " + response)
+      //     console.log()
+      //   })
+      // })
   }
 
   getMyLocationError = err => {
@@ -54,15 +68,15 @@ class App extends React.Component {
   }
 
   render() {
-    // navigator.geolocation.getCurrentPosition(this.getLocationSuccess, this.getMyLocationError)
-    console.log(this.state.myLat)
     return (
       <div>
-        {(this.state.myLat && this.state.storeList) ? (<MyMap
-          myLat={this.state.myLat}
-          myLng={this.state.myLng}
-          allStores={this.state.storeList}
-          showLocation={this.state.isLocationMarkerShow} />)
+        <Header />
+        {(this.state.myLat && this.state.storeList) ? (
+          <Home
+            myLat={this.state.myLat}
+            myLng={this.state.myLng}
+            storeList={this.state.storeList}
+            showLocation={this.state.isLocationMarkerShow} />)
           :
           (<div>Getting your position drinker</div>)}
 
