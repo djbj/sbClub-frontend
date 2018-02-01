@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:700|Oswald:600');
+@import url('https://fonts.googleapis.com/css?family=Asset|Diplomata+SC|Ewert|Faster+One|Gravitas+One|Limelight');
+/* Fonts that will be used in project */
+/* font-family: 'Oswald', sans-serif; */
+/* font-family: 'Open Sans Condensed', sans-serif; */
+/* font-family: 'Open Sans', sans-serif; */
+/* font-family: 'Limelight', cursive; */
+/* font-family: 'Gravitas One', cursive; */
+/* font-family: 'Faster One', cursive; */
+/* font-family: 'Asset', cursive; */
+/* font-family: 'Diplomata SC', cursive; */
+/* font-family: 'Ewert', cursive; */
+
+.header-container {
+
+  background-color: #167A40;
+  color: #FDD330;
+  /* color: #FFF; */
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Limelight', cursive;
+  font-family: 'Gravitas One', cursive;
+  font-family: 'Faster One', cursive;
+  font-family: 'Asset', cursive;
+  font-family: 'Diplomata SC', cursive;
+  /* font-family: 'Ewert', cursive; */
+  font-size: 24px;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 50px;
+  border: 3px solid #FDD330;
+}
