@@ -6,6 +6,7 @@ import "./index.css"
 const google = window.google;
 
 const MapWithAMarker = withGoogleMap(props =>
+
   <GoogleMap
     defaultZoom={props.zoomTala}
     defaultCenter={{ lat: props.myLat, lng: props.myLng }}
@@ -20,7 +21,9 @@ const MapWithAMarker = withGoogleMap(props =>
         title={
           `SB ${store.Address1}
         Open today until ${store.Oppetider}`}
-        onClick={() => (console.log(`Store number ${store.Nr} clicked`))}
+        // onClick={() => (console.log(`Store number ${store.Nr} clicked`))}
+        // onClick={() => this.props.handleClick(store.Lat, store.Lng, store.isChosen, store.chosenStoreNr)}
+        onClick={()=>(props.onStoreMarkerClick(store.Lat, store.Lng, store.isChosen, store.chosenStoreN))}
         // label="SB"
         icon={sbBottle1}
       >
@@ -38,20 +41,13 @@ class MyMap extends React.Component {
     }
   }
 //
-
+  // componentDidMount() {
 componentWillReceiveProps(nextProps) {
     const DirectionsService = new google.maps.DirectionsService()
     DirectionsService.route({
       origin: new google.maps.LatLng(parseFloat(this.props.myLat), parseFloat(this.props.myLng)),
-      // origin: new google.maps.LatLng(this.props.myPosLat, this.props.myPosLng),
       destination: new google.maps.LatLng(parseFloat(this.props.chosenStoreLat), parseFloat(this.props.chosenStoreLng)),
-      // destination: new google.maps.LatLng(this.props.myStoreLat, this.props.myStoreLng),
-      // destination: new google.maps.LatLng(59.3081016, 18.0740143),
-      // travelMode: google.maps.TravelMode.WALKING
-      // travelMode: this.props.travel
       travelMode: google.maps.TravelMode[this.props.chosenTransport]
-      // travelMode: google.maps.TravelMode.WALKING
-      // travelMode
     },(result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
         console.log("Directions: " + result)
@@ -62,6 +58,11 @@ componentWillReceiveProps(nextProps) {
         console.error(`error fetching directions ${result}`);
       }
     })
+  }
+
+  storeMarkerClick = (storeLat, storeLng, isChosen, chosenStoreNr) => {
+    console.log(`StoreListItemClicked ${storeLat} and ${storeLng}`)
+    this.props.callToApp(storeLat, storeLng, isChosen, chosenStoreNr)
   }
 
   render() {
@@ -77,6 +78,7 @@ componentWillReceiveProps(nextProps) {
           chosenStoreLng={parseFloat(this.props.chosenStoreLng)}
           storeList={this.props.storeList}
           directions={this.state.directions}
+          onStoreMarkerClick={this.storeMarkerClick}
         />
       </div>
     )

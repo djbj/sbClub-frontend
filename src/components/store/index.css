@@ -48,3 +48,12 @@
 .travel-time {
   margin-left: 5px;
 }
+
+.open-info {
+  display: flex;
+  color: red;
+  flex-direction: row;
+  /* flex-wrap: nowrap; */
+  justify-content: space-between;
+  flex-start: s
+}

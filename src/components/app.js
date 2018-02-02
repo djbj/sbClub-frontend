@@ -12,6 +12,7 @@ class App extends React.Component {
     super(props)
     navigator.geolocation.getCurrentPosition(this.getLocationSuccess, this.getMyLocationError)
     this.state = {
+      enter:""
     }
   }
 
@@ -50,16 +51,17 @@ class App extends React.Component {
         urlStoresCoords = urlStoresCoords.join("")
         console.log(urlStoresCoords)
         let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.state.myLat + "%2C" + this.state.myLng + "&destinations="+ urlStoresCoords + "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
-        // url = url + urlStoresCoords + "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
         console.log(url)
         return url
       })
       // .then(url => {
-      //   Here I fetch distances using google matrix api
-      //   fetch(url, { mode: "no-cors" }).then(response => {
-      //     console.log("REsponse is: " + response)
-      //     console.log()
-      //   })
+      //   // Here I fetch distances using google matrix api
+      //   fetch(url, { mode: "no-cors" })
+      //     .then(response => {
+      //       console.log(typeof(response))
+      //       return response
+      //     })
+      //     .then(response => console.log(response))
       // })
   }
 
@@ -67,18 +69,38 @@ class App extends React.Component {
     console.warn(`ERROR(${err.code}): ${err.message}`)
   }
 
+  enterClub = () => {
+    this.setState({
+      enter: "ENTER"
+    })
+  }
+
   render() {
     return (
       <div>
         <Header />
-        {(this.state.myLat && this.state.storeList) ? (
+        {(this.state.myLat && this.state.storeList && this.state.enter==="ENTER") ? (
           <Home
             myLat={this.state.myLat}
             myLng={this.state.myLng}
             storeList={this.state.storeList}
             showLocation={this.state.isLocationMarkerShow} />)
           :
-          (<div>Getting your position drinker</div>)}
+          (<div>
+            <div className="welcome">WELCOME</div>
+          <div className="drinker">- getting your position drinker -</div>
+          <div className="message">
+            Welcome to the systemet.club website.
+            You may not enter if you are:
+            Younger than 20 years old or
+            Lawyer working for Systembolaget.
+            Others, please enter on your own risk !
+            <div className="enter" onClick={this.enterClub}>ENTER</div>
+          </div>
+          </div>
+          )
+
+        }
 
       </div>
     )

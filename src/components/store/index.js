@@ -115,17 +115,19 @@ class Store extends React.Component {
             ) : (
               <div>
                 {this.state.timeToClose === "Closed" ? (
-                  <span className="closes-in">Sorry, closed at {this.state.openingTimes[2]}</span>
+                  <div className="open-info">
+                    <span className="closes-in">Sorry, closed at {this.state.openingTimes[2]}</span>
+                </div>
                 ) : (
-                  <div>
+                  <div className="open-info">
                     <span className="store-hrs">Open until: {this.state.openingTimes[2]} </span>
-                    <span className="closes-in">Closes in{this.state.timeToClose}</span>
+                    <span className="closes-in">{this.state.timeToClose} until closing</span>
                   </div>
                 )}
               </div>
             )}
-            <span className="travel-time">Travel time: {this.state.travelTime} $$$ </span>
-            <span className="store-coords">Coords: {this.props.storeLat}, {this.props.storeLng} </span>
+            {/* <span className="travel-time">Travel time: {this.state.travelTime} $$$ </span> */}
+            {/* <span className="store-coords">Coords: {this.props.storeLat}, {this.props.storeLng} </span> */}
           </div>
         </a>
       </div>

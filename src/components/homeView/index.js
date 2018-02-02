@@ -65,7 +65,8 @@ class Home extends React.Component {
           appState={this.upDateCenter}
           isLocationMarkerShown={this.state.isLocationMarkerShown}
           storeList={this.props.storeList}
-          chosenTransport={this.state.chosenTransport} />
+          chosenTransport={this.state.chosenTransport}
+          callToApp={this.upDateCenter} />
         }
         <Transport
           sendToHomeTransport={this.upDateTransport}
