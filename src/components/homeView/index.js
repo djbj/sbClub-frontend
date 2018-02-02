@@ -8,8 +8,8 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      storeLat: 0,
-      storeLng: 0,
+      storeLat: 59.3340599,
+      storeLng: 18.0628982,
       isStoreChosen: false,
       chosenStore: 0,
       chosenTransport: "WALKING"

@@ -28,12 +28,12 @@ const MyMapComponent = compose(
       DirectionsService.route({
         // origin: new google.maps.LatLng(59.317254999999996, 18.0282943),
         origin: new google.maps.LatLng(this.props.myPosLat, this.props.myPosLng),
-        destination: new google.maps.LatLng(59.298469, 18.0790565),
+        destination: new google.maps.LatLng(this.props.myStoreLat, this.props.myStoreLng),
         // destination: new google.maps.LatLng(this.props.myStoreLat, this.props.myStoreLng),
         // destination: new google.maps.LatLng(59.3081016, 18.0740143),
         // travelMode: this.props.travel
         // travelMode: google.maps.TravelMode[this.props.travel]
-        travelMode: google.maps.TravelMode.WALKING
+        // travelMode: google.maps.TravelMode.WALKING
         // travelMode
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -134,7 +134,7 @@ export default class Map extends React.PureComponent {
           onMarkerClick={this.handleMarkerClick}
           allStores={this.props.storeList}
           myStoreLat={parseFloat(this.props.chosenStoreLat)}
-          myStoreLng={parseFloat(this.props.chosenStoreLat)}
+          myStoreLng={parseFloat(this.props.chosenStoreLng)}
           // isOpen={true}
           // travel="TRANSIT"
           travel={"google.maps.TravelMode." + this.props.chosenTransport}

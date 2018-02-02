@@ -14,8 +14,6 @@ const MapWithAMarker = withGoogleMap(props =>
       position={{ lat: props.myLat, lng: props.myLng }}
     />
     {props.storeList.map(store => (
-      // console.log(store),
-      // console.log(store.Lat, store.Lng)
       <Marker
         key={store.Nr}
         position={{ lat: parseFloat(store.Lat), lng: parseFloat(store.Lng) }}
@@ -25,32 +23,60 @@ const MapWithAMarker = withGoogleMap(props =>
         onClick={() => (console.log(`Store number ${store.Nr} clicked`))}
         // label="SB"
         icon={sbBottle1}
-        // icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
-        // icon={"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|0B7B3E"}
       >
-        {/* {console.log("props isOpen" + props.isOpen)} */}
-        {/* {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
-          <FaAnchor />
-          TextHere </InfoWindow>} */}
       </Marker>
     ))}
-
+    {props.directions && <DirectionsRenderer directions={props.directions} zoom="13" />}
     </GoogleMap>
 )
 
 class MyMap extends React.Component {
-  
+  constructor(props){
+    super(props)
+    this.state = {
+      directions: ""
+    }
+  }
+//
+
+componentWillReceiveProps(nextProps) {
+    const DirectionsService = new google.maps.DirectionsService()
+    DirectionsService.route({
+      origin: new google.maps.LatLng(parseFloat(this.props.myLat), parseFloat(this.props.myLng)),
+      // origin: new google.maps.LatLng(this.props.myPosLat, this.props.myPosLng),
+      destination: new google.maps.LatLng(parseFloat(this.props.chosenStoreLat), parseFloat(this.props.chosenStoreLng)),
+      // destination: new google.maps.LatLng(this.props.myStoreLat, this.props.myStoreLng),
+      // destination: new google.maps.LatLng(59.3081016, 18.0740143),
+      // travelMode: google.maps.TravelMode.WALKING
+      // travelMode: this.props.travel
+      travelMode: google.maps.TravelMode[this.props.chosenTransport]
+      // travelMode: google.maps.TravelMode.WALKING
+      // travelMode
+    },(result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        console.log("Directions: " + result)
+        this.setState({
+          directions: result
+        })
+      } else {
+        console.error(`error fetching directions ${result}`);
+      }
+    })
+  }
 
   render() {
     return (
       <div className="my-map">
         <MapWithAMarker
           containerElement={<div style={{ height: "400px" }} />}
-          mapElement={<div style={{ height: "100%" }} />}
+          mapElement={<div className="map" id="map" style={{ height: "100%" }} />}
           zoomTala={13}
           myLat={parseFloat(this.props.myLat)}
           myLng={parseFloat(this.props.myLng)}
+          chosenStoreLat={parseFloat(this.props.chosenStoreLat)}
+          chosenStoreLng={parseFloat(this.props.chosenStoreLng)}
           storeList={this.props.storeList}
+          directions={this.state.directions}
         />
       </div>
     )

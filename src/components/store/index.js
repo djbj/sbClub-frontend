@@ -56,7 +56,39 @@ class Store extends React.Component {
   }
 
   handleClick = () => {
-    
+
+    // let directionsDisplay
+    const directionsService = new google.maps.DirectionsService();
+    //
+    // const haight = new google.maps.LatLng(this.props.storeLat, this.props.storeLng);
+    // const oceanBeach = new google.maps.LatLng(this.props.myLat, this.props.myLng);
+    //
+    // function initialize() {
+    //   directionsDisplay = new google.maps.DirectionsRenderer();
+    //   const mapOptions = {
+    //     zoom: 14,
+    //     center: haight
+    //   }
+    //   const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    //   directionsDisplay.setMap(map)
+    // }
+    //
+    // function calcRoute() {
+    //   var selectedMode = document.getElementById('mode').value;
+    //   var request = {
+    //       origin: haight,
+    //       destination: oceanBeach,
+    //       // Note that Javascript allows us to access the constant
+    //       // using square brackets and a string value as its
+    //       // "property."
+    //       travelMode: google.maps.TravelMode[selectedMode]
+    //   };
+    //   directionsService.route(request, function(response, status) {
+    //     if (status == 'OK') {
+    //       directionsDisplay.setDirections(response);
+    //     }
+    //   });
+    // }
     this.setState({
       isStoreChosen: !this.state.isStoreChosen,
       chosenStore: this.props.nr
@@ -93,6 +125,7 @@ class Store extends React.Component {
               </div>
             )}
             <span className="travel-time">Travel time: {this.state.travelTime} $$$ </span>
+            <span className="store-coords">Coords: {this.props.storeLat}, {this.props.storeLng} </span>
           </div>
         </a>
       </div>
