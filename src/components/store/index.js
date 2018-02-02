@@ -121,7 +121,7 @@ class Store extends React.Component {
                 ) : (
                   <div className="open-info">
                     <span className="store-hrs">Open until: {this.state.openingTimes[2]} </span>
-                    <span className="closes-in">{this.state.timeToClose} until closing</span>
+                    <span className="closes-in">{this.state.timeToClose}</span>
                   </div>
                 )}
               </div>

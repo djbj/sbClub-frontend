@@ -1,8 +1,9 @@
 .store a{
   margin: 0;
-  padding: 0;
+  /* padding: 1px; */
+  padding: 5px 1px 5px 1px;
   color: white;
-  font-size: 18px;
+  font-size: 2em;
   text-decoration: none;
 }
 
@@ -16,8 +17,9 @@
 .store-box {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin: 0 5px 0 5px;
-  padding: 5px;
+  padding: 0;
 }
 
 .systemet {
@@ -51,9 +53,19 @@
 
 .open-info {
   display: flex;
-  color: red;
+  color: white;
   flex-direction: row;
   /* flex-wrap: nowrap; */
   justify-content: space-between;
   flex-start: s
+}
+
+.closes-in {
+  border-radius: 50px;
+  min-width: 20%;
+  background-color: white;
+  padding:0 20px 0 20px;
+  margin-left: 15px;
+  color: red;
+  text-align: center;
 }
