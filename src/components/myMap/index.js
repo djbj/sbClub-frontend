@@ -42,7 +42,8 @@ class MyMap extends React.Component {
   }
 //
   // componentDidMount() {
-componentWillReceiveProps(nextProps) {
+// componentWillReceiveProps(nextProps) {
+  updateMyMap = () => {
     const DirectionsService = new google.maps.DirectionsService()
     DirectionsService.route({
       origin: new google.maps.LatLng(parseFloat(this.props.myLat), parseFloat(this.props.myLng)),
@@ -66,6 +67,7 @@ componentWillReceiveProps(nextProps) {
   }
 
   render() {
+    this.updateMyMap()
     return (
       <div className="my-map">
         <MapWithAMarker
